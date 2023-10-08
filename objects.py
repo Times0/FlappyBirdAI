@@ -33,7 +33,8 @@ class Bird:
         self.y += self.velocity * dt
 
     def die(self):
-        self.genome.fitness -= 10
+        if self.genome is not None:
+            self.genome.fitness -= 10
 
     def jump(self):
         self.velocity = 0
@@ -49,8 +50,9 @@ class Bird:
                          (BIRD_X, self.y),
                          (BIRD_X + velocity.x * 10, self.y + velocity.y * 10), 2)
         # draw fitness
-        text = font.render(f"{self.genome.fitness:.1f}", True, Color("white"))
-        win.blit(text, text.get_rect(center=(BIRD_X, self.y - self.radius - 10)))
+        if self.genome is not None:
+            text = font.render(f"{self.genome.fitness:.1f}", True, Color("white"))
+            win.blit(text, text.get_rect(center=(BIRD_X, self.y - self.radius - 10)))
 
 
 class Pipe(pygame.sprite.Sprite):

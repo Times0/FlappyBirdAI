@@ -1,4 +1,5 @@
 import os
+import pickle
 
 import pygame.sprite
 from pygame import Color
@@ -12,9 +13,18 @@ font = pygame.font.SysFont("Arial", 50)
 
 
 class Game:
-    def __init__(self, genomes, config):
+    def __init__(self, genomes=None, config=None, bird=None):
         self.genomes = genomes
         self.config = config
+        self.bird = bird
+        if bird is not None:
+            self.birds = [bird]
+            self.pipes = [Pipe()]
+            self.score = 0
+            self.time_since_last_pipe = 0
+            self.game_is_on = True
+            self.win = pygame.display.set_mode((WIDTH, HEIGHT))
+            return
 
         self.game_is_on = True
         self.win = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -52,7 +62,7 @@ class Game:
 
     def update(self, dt):
         self.time_since_last_pipe += dt
-        if self.time_since_last_pipe > 2000:
+        if self.time_since_last_pipe > 1000:
             self.time_since_last_pipe = 0
             self.pipes.append(Pipe())
 
@@ -63,7 +73,8 @@ class Game:
                 self.birds.remove(bird)
                 break
 
-            bird.genome.fitness += 0.01
+            if self.config is not None:
+                bird.genome.fitness += 0.01
             next_pipe = self.pipes[0]
             if next_pipe.x + next_pipe.width < BIRD_X:
                 next_pipe = self.pipes[1]
@@ -77,8 +88,9 @@ class Game:
             if pipe.x < -pipe.width:
                 self.pipes.remove(pipe)
                 self.score += 1
-                for bird in self.birds:
-                    bird.genome.fitness += 5
+                if self.config is not None:
+                    for bird in self.birds:
+                        bird.genome.fitness += 5
 
     def check_collision(self):
         for pipe in self.pipes:
@@ -111,9 +123,20 @@ def run(config_path):
     config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction,
                                 neat.DefaultSpeciesSet, neat.DefaultStagnation,
                                 config_path)
-    population = neat.Population(config)
-    population.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
-    population.add_reporter(stats)
-    winner = population.run(main, 50)
-    print(f"\nBest genome:\n{winner}")
+    if os.path.exists("best_genome"):
+        with open("best_genome", 'rb') as file:
+            winner = pickle.load(file)
+        net = neat.nn.FeedForwardNetwork.create(winner, config)
+        bird = Bird(net, None)
+        game = Game(bird=bird)
+        game.run()
+
+
+    else:
+        population = neat.Population(config)
+        population.add_reporter(neat.StdOutReporter(True))
+        stats = neat.StatisticsReporter()
+        population.add_reporter(stats)
+        winner = population.run(main, 5)
+        with open("best_genome", 'wb') as file:
+            pickle.dump(winner, file)
