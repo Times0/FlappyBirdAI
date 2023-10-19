@@ -1,7 +1,6 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![License][license-shield]][license-url]
 
 
 
@@ -15,16 +14,11 @@
 <h3 align="center">Flappy Bird AI</h3>
 
   <p align="center">
-    Simple AI for Flappy Bird using <a href="https://nn.cs.utexas.edu/downloads/papers/stanley.cec02.pdf"> NEAT </a> algorithm. Inspired from <a href="https://youtu.be/MPFWsRjDmnU?list=PLzMcBGfZo4-lwGZWXz5Qgta_YNX3_vLS2">this video</a>.
+    Simple AI for Flappy Bird using <a href="https://nn.cs.utexas.edu/downloads/papers/stanley.cec02.pdf"> NEAT </a> algorithm. Inspired from <a href="https://youtu.be/MPFWsRjDmnU?list=PLzMcBGfZo4-lwGZWXz5Qgta_YNX3_vLS2">this video</a>. 
     <br />
-    <a href="https://github.com/FlappyBirdAI/FlappyBirdAI"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/FlappyBirdAI/FlappyBirdAI">View Demo</a>
+    <a href="https://github.com/Times0/FlappyBirdAI/issues">Report Bug</a>
     ·
-    <a href="https://github.com/FlappyBirdAI/FlappyBirdAI/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/FlappyBirdAI/FlappyBirdAI/issues">Request Feature</a>
+    <a href="https://github.com/Times0/FlappyBirdAI/issues">Request Feature</a>
   </p>
 </div>
 
