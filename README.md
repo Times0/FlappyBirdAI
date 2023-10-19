@@ -53,12 +53,13 @@
 
 
 <!-- ABOUT THE PROJECT -->
+Here is what it looks like after the training:
+![trained.gif](images%2Ftrained.gif)
 
 ## About The Project
 Training an AI to play Flappy Bird using NEAT algorithm.
 
 NEAT = NEUROEVOLUTION OF AUGMENTING TOPOLOGIES 
-![demo_training.gif](images%2Fdemo_training.gif)
 
 <!-- GETTING STARTED -->
 
@@ -87,10 +88,10 @@ If there is a file `best_genome` in the folder, the program will load it and use
 Otherwise, it will train a new AI and save it in the file `best_genome`.
 
 
-# Trained
-It does not lose 🤯
+# Training
+![demo_training.gif](images%2Fdemo_training.gif)
 
-![trained.gif](images%2Ftrained.gif)
+
 
 
 

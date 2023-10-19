@@ -1,4 +1,4 @@
 WIDTH, HEIGHT = 500, 600
 
 # game
-FPS = 500
+FPS = 60
