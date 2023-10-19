@@ -3,7 +3,7 @@ import os
 import pygame
 
 from constants import *
-from game import Game, run
+from game import run
 
 if __name__ == "__main__":
     pygame.init()

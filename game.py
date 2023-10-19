@@ -10,19 +10,25 @@ from objects import Bird, Pipe, BIRD_X
 import neat
 
 pygame.init()
-font = pygame.font.SysFont("Arial", 50)
+score_font = pygame.font.SysFont("Arial", 50)
+stats_font = pygame.font.Font("IBMPlexSans-Regular.ttf", 20)
+
+PIPE_SPACING = 300
 
 
 class Game:
+    instance_number = 0
 
     def __init__(self):
-        self.time_since_last_pipe = float("inf")
         self.score = 0
+        self.simulation_number = 0
         self.game_is_on = True
         self.win = pygame.display.set_mode((WIDTH, HEIGHT))
         self.pipes = []
 
     def init_bot(self, *, genomes=None, config=None, bird=None, max_score=None):
+        self.simulation_number = Game.instance_number
+        Game.instance_number += 1
         self.human_playing = False
         self.genomes = genomes
         self.config = config
@@ -64,9 +70,8 @@ class Game:
                     self.birds[0].jump()
 
     def update(self):
-        self.time_since_last_pipe += 1
-        if self.time_since_last_pipe > 120:
-            self.time_since_last_pipe = 0
+        # add pipe
+        if len(self.pipes) == 0 or self.pipes[-1].x < WIDTH - PIPE_SPACING:
             self.pipes.append(Pipe())
 
         for bird in self.birds[:]:
@@ -108,6 +113,30 @@ class Game:
         if len(self.birds) == 0:
             self.game_is_on = False
 
+    def draw_stats(self, win):
+        if self.config is not None:
+            # draw number of birds
+            text = stats_font.render(f"Birds: {len(self.birds)}", True, Color("white"))
+            win.blit(text, text.get_rect(topleft=(10, 10)))
+
+            # draw simulation number
+            text = stats_font.render(f"Generation: {self.simulation_number}", True, Color("white"))
+            win.blit(text, text.get_rect(topleft=(10, 40)))
+
+            # draw average fitness
+            avg_fitness = sum([bird.genome.fitness for bird in self.birds]) / len(self.birds) if len(
+                self.birds) > 0 else 0
+            text = stats_font.render(f"Avg. Fitness: {avg_fitness:.2f}", True, Color("white"))
+            win.blit(text, text.get_rect(topleft=(10, 70)))
+
+        else:
+            # Show trained
+            text = stats_font.render(f"Trained", True, Color("white"))
+            win.blit(text, text.get_rect(topleft=(10, 10)))
+
+        text = score_font.render(str(self.score), True, Color("Gray"))
+        win.blit(text, text.get_rect(center=(WIDTH // 2, 50)))
+
     def draw(self, win):
         win.fill(Color("black"))
         for bird in self.birds:
@@ -115,14 +144,15 @@ class Game:
         for pipe in self.pipes:
             pipe.draw(win)
 
-        text = font.render(str(self.score), True, Color("white"))
-        win.blit(text, text.get_rect(center=(WIDTH // 2, 50)))
+        if not self.human_playing:
+            self.draw_stats(win)
+
         pygame.display.flip()
 
 
 def main(genomes, config):
     game = Game()
-    game.init_bot(genomes=genomes, config=config)
+    game.init_bot(genomes=genomes, config=config, max_score=50)
     game.run()
 
 
@@ -144,7 +174,7 @@ def run(config_path):
         population.add_reporter(neat.StdOutReporter(True))
         stats = neat.StatisticsReporter()
         population.add_reporter(stats)
-        winner = population.run(main, 10)
+        winner = population.run(main)
         with open("best_genome", 'wb') as file:
             pickle.dump(winner, file)
 

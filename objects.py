@@ -5,7 +5,7 @@ import random
 
 BIRD_X = 100
 GAP_SIZE = 200
-X_SPEED = 2
+X_SPEED = 4
 
 pygame.font.init()
 font = pygame.font.SysFont("Arial", 15)
@@ -23,8 +23,9 @@ class Bird:
         self.lift = -5
 
         self.radius = 20
-        self.color = random.choice([Color("red"), Color("blue"), Color("green"), Color("yellow"), Color("white"),
-                                    Color("orange"), Color("purple"), Color("pink"), Color("brown"), Color("grey")])
+
+        colors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "cyan", "magenta"]
+        self.color = Color(random.choice(colors))
 
         self.time_since_last_jump = 0
 
@@ -49,15 +50,16 @@ class Bird:
 
     def draw(self, win, pipes, show_input=False):
         pygame.draw.circle(win, self.color, (BIRD_X, self.y), self.radius)
+        pygame.draw.circle(win, Color("red"), (BIRD_X, self.y), self.radius, 2)
         if show_input:
             # Next pipe gap top
             next_pipe = pipes[0]
             if next_pipe.x + next_pipe.width < BIRD_X:
                 next_pipe = pipes[1]
-            pygame.draw.line(win, Color("pink"), (BIRD_X, self.y),
+            pygame.draw.line(win, Color("green"), (BIRD_X, self.y),
                              (next_pipe.x + next_pipe.width, next_pipe.gap_top), 2)
             # Next pipe gap bottom
-            pygame.draw.line(win, Color("pink"), (BIRD_X, self.y),
+            pygame.draw.line(win, Color("green"), (BIRD_X, self.y),
                              (next_pipe.x + next_pipe.width, next_pipe.gap_top + next_pipe.gap_size), 2)
 
 

@@ -61,11 +61,7 @@
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
-
-![Product Training][product-screenshot]
-![Product Trained][product-screenshot-2]
-
-
+![demo_training.gif](images%2Fdemo_training.gif)
 
 <!-- GETTING STARTED -->
 
@@ -78,10 +74,11 @@ git clone https://github.com/Times0/FlappyBirdAI.git
 ```
 
 2. Install requirements
-
 ``` 
 pip install -r requirements.txt
 ```
+
+
 
 3. Run the program
 
@@ -92,30 +89,19 @@ python main.py
 If there is a file `best_genome` in the folder, the program will load it and use it to play the game.
 Otherwise, it will train a new AI and save it in the file `best_genome`.
 
-### Installation
 
-<!-- USAGE EXAMPLES -->
+# Trained
+It does not lose 🤯
 
-## Usage
+![trained.gif](images%2Ftrained.gif)
 
-<!-- CONTRIBUTING -->
 
-## Contributing
-
-Do not hesitate to contribute to the project, it is open to everyone.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 <!-- CONTACT -->
 
 ## Contact
 
-dorian.programming@gmail.com
-
+times.coding@gmail.com
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
