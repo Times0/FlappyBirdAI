@@ -55,6 +55,9 @@
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
+Training an AI to play Flappy Bird using NEAT algorithm.
+
+NEAT = NEUROEVOLUTION OF AUGMENTING TOPOLOGIES 
 ![demo_training.gif](images%2Fdemo_training.gif)
 
 <!-- GETTING STARTED -->
